@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'init']
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      # The generated patch is copied from dsh-v0.2.2-rc.1's own preset files;
+      # fail before packing if the manifest or the committed patch drifted.
+      - name: Check the DSH pin and the generated patch
+        run: pnpm check
+
+  # What a user actually installs: the packed tarball into a fresh DSH web
+  # profile, normal and with dsh-arbor beside it, then the uninstall path. The
+  # checkout resolves one copy of every DSH package, so only this job can see
+  # what `dsh plugin add` does to a profile.
+  profile-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Profile install
+        env:
+          STANDARD_PLUS_CHECK_ARBOR: '1'
+        run: pnpm check:profile
