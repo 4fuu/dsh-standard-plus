@@ -1,0 +1,12 @@
+packages:
+  - 'packages/*'
+
+# pnpm 11 refuses to finish an install while a package with an install script is
+# neither approved nor denied, so a clean clone needs every script it pulls in
+# decided. This repository only reads @deepseek-ai/dsh-web-app's preset YAML and
+# packs the bundle; nothing here executes a native addon or a build step.
+allowBuilds:
+  # The FFI layer DSH's Windows process bindings use. It is pulled in by the
+  # Linux dependency tree but nothing this repository runs loads it, and its
+  # install script builds from source.
+  koffi: false

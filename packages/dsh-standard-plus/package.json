@@ -1,0 +1,33 @@
+{
+  "name": "@4fu/dsh-standard-plus",
+  "version": "2026.1110.0",
+  "type": "module",
+  "description": "A DeepSeek Harness bundle that replaces the shipped agent modes with one Standard mode carrying Creator mode's Cordis tools",
+  "exports": {
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4fuu/dsh-standard-plus.git",
+    "directory": "packages/dsh-standard-plus"
+  },
+  "engines": {
+    "node": ">=24.9.0",
+    "dsh": "0.2.2-rc.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

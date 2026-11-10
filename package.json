@@ -1,0 +1,29 @@
+{
+  "name": "dsh-standard-plus",
+  "private": true,
+  "type": "module",
+  "description": "A DeepSeek Harness bundle that replaces the shipped agent modes with one Standard mode carrying Creator mode's Cordis tools",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4fuu/dsh-standard-plus.git"
+  },
+  "packageManager": "pnpm@11.28.5",
+  "scripts": {
+    "check:pin": "node scripts/check-dsh-pin.mjs",
+    "check:patch": "node scripts/generate-patch.mjs --check",
+    "test": "node --test --experimental-strip-types --no-warnings test/patch.test.ts",
+    "check": "pnpm check:pin && pnpm check:patch && pnpm test",
+    "check:profile": "node scripts/check-profile.mjs",
+    "generate": "node scripts/generate-patch.mjs",
+    "pack": "node scripts/publish.mjs"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-web-app": "0.2.2-rc.1",
+    "yaml": "2.9.1"
+  },
+  "engines": {
+    "node": ">=24.9.0",
+    "dsh": "0.2.2-rc.1"
+  }
+}
